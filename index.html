@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CIOT para Todos — NDD Cargo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#E6E8EB;color:#071F36;line-height:1.6;min-height:100vh}
+a{color:#071F36;text-decoration:none}
+svg.ic{display:inline-block;vertical-align:middle;flex-shrink:0}
+
+nav{background:#071F36;position:sticky;top:0;z-index:100;padding:0 1.5rem}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:52px}
+.nav-logo-box{background:#030C16;border-radius:6px;padding:4px 10px;margin-right:1.5rem;flex-shrink:0}
+.nav-logo-box span{color:#fff;font-size:13px;font-weight:600;letter-spacing:-.3px}
+.nav-logo-box span em{font-style:normal;font-weight:400;opacity:.7}
+.nav-divider{width:1px;height:20px;background:rgba(255,255,255,.15);margin-right:1.5rem;flex-shrink:0}
+.nav-tabs{display:flex;overflow-x:auto;gap:0;flex:1}
+.nav-tabs button{background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;padding:0 14px;height:52px;color:rgba(255,255,255,.55);white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nav-tabs button:hover{color:rgba(255,255,255,.85)}
+.nav-tabs button.active{color:#fff;border-bottom-color:#fff;font-weight:500}
+
+.hero{background:#071F36;padding:2.5rem 1.5rem 2rem}
+.hero-inner{max-width:960px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:1rem;border:1px solid rgba(255,255,255,.15)}
+.hero h1{font-size:26px;font-weight:600;color:#fff;margin-bottom:.5rem;line-height:1.3}
+.hero p{font-size:14px;color:rgba(255,255,255,.6);max-width:580px;margin-bottom:1.5rem}
+.hero-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.75rem}
+.btn-primary{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#071F36;font-family:inherit;font-size:13px;font-weight:500;padding:8px 16px;border-radius:6px;border:none;cursor:pointer;text-decoration:none;transition:opacity .15s}
+.btn-primary:hover{opacity:.88}
+.btn-outline{display:inline-flex;align-items:center;gap:7px;background:transparent;color:rgba(255,255,255,.85);font-family:inherit;font-size:13px;font-weight:500;padding:8px 16px;border-radius:6px;border:1px solid rgba(255,255,255,.25);cursor:pointer;text-decoration:none;transition:border-color .15s,color .15s}
+.btn-outline:hover{border-color:rgba(255,255,255,.6);color:#fff}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:580px}
+.stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 16px}
+.stat-n{font-size:22px;font-weight:600;color:#fff}
+.stat-l{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+
+.page{max-width:960px;margin:0 auto;padding:1.5rem}
+.section{display:none}
+.section.active{display:block}
+.card{background:#fff;border:1px solid #D1D5DB;border-radius:8px;padding:1.25rem}
+.sec-header{margin-bottom:1.25rem}
+.sec-header h2{font-size:17px;font-weight:600;color:#071F36}
+.sec-header p{font-size:13px;color:#6B7280;margin-top:3px}
+
+.change-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:1.25rem}
+.change-card{background:#fff;border:1px solid #D1D5DB;border-radius:8px;padding:1.25rem;transition:border-color .15s}
+.change-card:hover{border-color:#071F36}
+.change-icon{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem}
+.change-card h3{font-size:13px;font-weight:600;margin-bottom:.4rem;color:#071F36}
+.change-card p{font-size:13px;color:#4B5563;line-height:1.55}
+.pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 10px;border-radius:12px;margin-top:.75rem}
+.pill-new{background:#DCFCE7;color:#166534}
+.pill-change{background:#FEF3C7;color:#92400E}
+.pill-risk{background:#FEE2E2;color:#991B1B}
+
+.tl-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:1.25rem}
+.tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.tl-dot.blue{background:#EFF6FF}
+.tl-dot.amber{background:#FFFBEB}
+.tl-dot.green{background:#F0FDF4}
+.tl-content h4{font-size:13px;font-weight:600;color:#071F36;margin-bottom:2px}
+.tl-content p{font-size:13px;color:#4B5563}
+
+.table-wrap{overflow-x:auto;margin-top:.75rem}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:#F9FAFB;font-weight:500;text-align:left;padding:9px 12px;border-bottom:1px solid #E5E7EB;color:#6B7280;white-space:nowrap;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+tbody td{padding:9px 12px;border-bottom:1px solid #F3F4F6;color:#374151;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#FAFAFA}
+.tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px}
+.tag-ok{background:#DCFCE7;color:#166534}
+.tag-err{background:#FEE2E2;color:#991B1B}
+.tag-new{background:#EFF6FF;color:#1D4ED8}
+
+.rej-toolbar{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem}
+.rej-search{width:100%;padding:8px 12px;font-size:13px;border:1px solid #D1D5DB;border-radius:6px;background:#fff;outline:none;font-family:inherit;color:#071F36}
+.rej-search:focus{border-color:#071F36}
+.rej-filter{display:flex;gap:6px;flex-wrap:wrap}
+.rej-filter button{background:#fff;border:1px solid #D1D5DB;border-radius:20px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit;color:#374151;transition:all .15s}
+.rej-filter button:hover{border-color:#071F36;color:#071F36}
+.rej-filter button.on{background:#071F36;color:#fff;border-color:#071F36}
+.rej-list{display:flex;flex-direction:column;gap:6px}
+.rej-item{background:#fff;border:1px solid #D1D5DB;border-radius:8px;overflow:hidden}
+.rej-header{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;cursor:pointer;user-select:none;gap:12px;background:#FAFAFA}
+.rej-header:hover{background:#F3F4F6}
+.rej-item.open .rej-header{background:#F3F4F6}
+.rej-msg-wrap{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.rej-hint{font-size:11px;color:#6B7280;display:flex;align-items:center;gap:4px}
+.rej-msg{font-size:12px;font-family:'Courier New',monospace;color:#374151;word-break:break-word}
+.rej-cat{font-size:11px;color:#9CA3AF;white-space:nowrap;flex-shrink:0}
+.rej-chev{transition:transform .2s;flex-shrink:0}
+.rej-body{padding:0 14px 13px;border-top:1px solid #F3F4F6}
+.rej-cause,.rej-solution{font-size:13px;margin-top:10px}
+.rej-cause strong,.rej-solution strong{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#9CA3AF;display:block;margin-bottom:4px;font-weight:500}
+.rej-steps{list-style:none;padding:0}
+.rej-steps li{padding:3px 0 3px 1.1em;position:relative;font-size:13px;color:#374151}
+.rej-steps li:before{content:"›";position:absolute;left:0;color:#071F36;font-weight:600}
+.bug-badge{background:#FEF3C7;color:#92400E;font-size:11px;padding:2px 9px;border-radius:10px;margin-top:6px;display:inline-block;font-weight:500}
+.escalate-badge{background:#FEE2E2;color:#991B1B;font-size:11px;padding:2px 9px;border-radius:10px;margin-top:6px;display:inline-block;font-weight:500}
+.rej-empty{color:#9CA3AF;font-size:14px;padding:2.5rem;text-align:center}
+
+.faq-section-title{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#9CA3AF;font-weight:500;margin:1.5rem 0 .4rem;padding-top:.5rem}
+.faq-item{border-bottom:1px solid #F3F4F6}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:12px 0;cursor:pointer;user-select:none;gap:12px}
+.faq-q:hover span{color:#030C16}
+.faq-q span{font-size:13px;font-weight:500;flex:1;color:#071F36}
+.faq-chev{transition:transform .2s;flex-shrink:0}
+.faq-item.open .faq-chev{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#4B5563;line-height:1.6;padding-bottom:13px;display:none}
+.faq-item.open .faq-a{display:block}
+
+.info-banner{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:1rem 1.25rem;display:flex;align-items:flex-start;gap:12px;margin-top:1.25rem}
+.info-banner p{font-size:13px;color:#1E40AF}
+.info-banner a{color:#1D4ED8;font-weight:500}
+.warn-banner{background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:1rem 1.25rem;margin-top:.75rem}
+.warn-banner p{font-size:13px;color:#92400E}
+.danger-banner{background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:1rem 1.25rem;margin-top:.75rem}
+.danger-banner p{font-size:13px;color:#991B1B}
+
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:1.25rem}
+.metric-card{background:#fff;border:1px solid #D1D5DB;border-radius:8px;padding:1rem 1.25rem}
+.metric-label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#9CA3AF;font-weight:500;margin-bottom:4px}
+.metric-value{font-size:20px;font-weight:600;color:#991B1B}
+.metric-sub{font-size:12px;color:#6B7280;margin-top:3px}
+
+@media(max-width:600px){.hero h1{font-size:20px}.change-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+<div class="nav-logo-box">
+<span>ndd<em>cargo</em></span>
+</div>
+<div class="nav-divider"></div>
+<div class="nav-tabs">
+<button class="active" onclick="showSection('mudancas',this)">O que mudou</button>
+<button onclick="showSection('quem',this)">Quem emite CIOT</button>
+<button onclick="showSection('prazos',this)">Prazos</button>
+<button onclick="showSection('rejeicoes',this)">Guia de rejeições</button>
+<button onclick="showSection('faq',this)">FAQ</button>
+</div>
+</div>
+</nav>
+
+<div class="hero">
+<div class="hero-inner">
+<div class="badge">
+<svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+Em vigor desde 24/05/2026
+</div>
+<h1>CIOT para todos — guia de transição NDD Cargo</h1>
+<p>Material de apoio para clientes e time de suporte NDD Cargo. Mudanças da MP 1.343/2026 e Portaria SUROC 6/2026: o que muda, quem emite, prazos, rejeições e dúvidas frequentes.</p>
+<div class="hero-btns">
+<a href="https://validador-xml-nddcargo.vercel.app/#" class="btn-primary">
+<svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+Validar minha integração
+</a>
+<a href="https://notebooklm.google.com/notebook/c9e41626-ab96-478b-b1fe-e61c3d27bb1b" class="btn-outline">
+<svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+NotebookLM — Leis do CIOT e Frete Mínimo
+</a>
+</div>
+<div class="hero-stats">
+<div class="stat"><div class="stat-n">24/05</div><div class="stat-l">Data de vigência</div></div>
+<div class="stat"><div class="stat-n">6</div><div class="stat-l">Mudanças principais</div></div>
+<div class="stat"><div class="stat-n">31</div><div class="stat-l">Rejeições mapeadas</div></div>
+<div class="stat"><div class="stat-n">32</div><div class="stat-l">Perguntas respondidas</div></div>
+</div>
+</div>
+</div>
+
+<!-- O QUE MUDOU -->
+<div id="sec-mudancas" class="section active">
+<div class="page">
+<div class="sec-header"><h2>As 6 mudanças mais importantes</h2><p>Impacto direto no dia a dia de contratantes e operadores.</p></div>
+<div class="change-grid">
+<div class="change-card">
+<div class="change-icon" style="background:#FEE2E2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+<h3>Valor do frete bloqueado abaixo do piso</h3>
+<p>Se o frete declarado for inferior ao piso mínimo, o CIOT é rejeitado na hora. Verifique distância, eixos e tipo de carga antes de enviar.</p>
+<span class="pill pill-risk">Bloqueio automático</span>
+</div>
+<div class="change-card">
+<div class="change-icon" style="background:#EFF6FF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+<h3>ETC com frota própria agora emite CIOT</h3>
+<p>Cenário novo a partir de 24/05/2026. Como emitir: Contratante = embarcador, Contratado = próprio ETC, Tipo de pagamento = Outros.</p>
+<span class="pill pill-new">Novo em 2026</span>
+</div>
+<div class="change-card">
+<div class="change-icon" style="background:#FEF3C7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+<h3>Carga lotação não tem mais retificação</h3>
+<p>Se enviar com erro, cancele (se dentro das 24h) e gere novo CIOT. Revise tudo antes: contratado, veículos, eixos, distância, valor, tipo de carga.</p>
+<span class="pill pill-risk">Sem retificação</span>
+</div>
+<div class="change-card">
+<div class="change-icon" style="background:#F0FDF4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 01-9 9"/></svg></div>
+<h3>Carga fracionada vira tipo formal de operação</h3>
+<p>Operações com mais de um contratante agora têm tag própria. Sistemas que usam &lt;padrao&gt; precisam ser atualizados para a versão 4.2.12.0.</p>
+<span class="pill pill-new">Novo tipo</span>
+</div>
+<div class="change-card">
+<div class="change-icon" style="background:#FEF3C7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+<h3>Cancelamento com janela rígida</h3>
+<p>Lotação e Fracionada só podem ser canceladas até 24h antes do início. Nenhum CIOT pode ser cancelado se já entrou em fiscalização ou auditoria.</p>
+<span class="pill pill-change">Prazo novo</span>
+</div>
+<div class="change-card">
+<div class="change-icon" style="background:#EFF6FF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg></div>
+<h3>TAC-Agregado: encerramento mínimo em 10 dias</h3>
+<p>A ANTT rejeita o encerramento antes de 10 dias do início. Pendentes há mais de 30 dias bloqueiam novos TAC-Agregado com qualquer transportador.</p>
+<span class="pill pill-change">Prazo alterado</span>
+</div>
+</div>
+
+<div style="margin-top:2rem">
+<h2 style="font-size:15px;font-weight:600;margin-bottom:1rem;color:#071F36">Outras mudanças no dia a dia</h2>
+<div class="tl-row">
+<div class="tl-dot blue"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+<div class="tl-content"><h4>Origem e destino mais detalhados</h4><p>Aceita código IBGE, CEP ou latitude/longitude. Origem e destino precisam usar o mesmo padrão. CEPs genéricos devem ser substituídos por coordenadas.</p></div>
+</div>
+<div class="tl-row">
+<div class="tl-dot amber"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+<div class="tl-content"><h4>Dados de pagamento obrigatórios e mais detalhados</h4><p>Tipo, banco/IP, agência, conta ou chave Pix, dados do creditado, parcelas e vencimentos. Para TAC e equiparado, o tipo "Outros" (5) não é aceito — use Conta Corrente (2).</p></div>
+</div>
+<div class="tl-row">
+<div class="tl-dot green"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+<div class="tl-content"><h4>Indicadores operacionais obrigatórios para Lotação</h4><p>Alto desempenho, retorno vazio e composição veicular passam a ser informados. Influenciam o cálculo do piso mínimo.</p></div>
+</div>
+<div class="tl-row">
+<div class="tl-dot blue"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+<div class="tl-content"><h4>Quebra de layout na integração TMS</h4><p>A tag &lt;padrao&gt; é substituída por &lt;lotacao&gt;, &lt;fracionado&gt; e &lt;TACagregado&gt;. Versão obrigatória: 4.2.12.0.</p></div>
+</div>
+<div class="tl-row">
+<div class="tl-dot amber"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+<div class="tl-content"><h4>CIOT obrigatório no MDF-e</h4><p>O número do CIOT precisa constar no MDF-e da operação. CIOT e MDF-e continuam sendo documentos separados — um não substitui o outro.</p></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- QUEM EMITE -->
+<div id="sec-quem" class="section">
+<div class="page">
+<div class="sec-header"><h2>Quem deve emitir CIOT</h2><p>Referência por cadeia de contratação — válido a partir de 24/05/2026.</p></div>
+<div class="card" style="padding:0">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Cadeia de contratação</th><th>Quem emite</th><th style="text-align:center">CIOT</th><th>Observação</th></tr></thead>
+<tbody>
+<tr><td>Embarcador → TAC</td><td>Embarcador</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>Caso clássico. Piso mínimo bloqueado no sistema.</td></tr>
+<tr><td>Embarcador → TAC Equiparado / CTC</td><td>Embarcador</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>Mesmo tratamento do TAC. Piso mínimo se aplica.</td></tr>
+<tr><td>Embarcador → ETC (frota própria)</td><td>ETC</td><td style="text-align:center"><span class="tag tag-new">Novo 2026</span></td><td>ETC sem TAC agora precisa emitir o CIOT.</td></tr>
+<tr><td>Embarcador → ETC → TAC</td><td>ETC (subcontratante)</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>A ETC que contrata o TAC é a responsável.</td></tr>
+<tr><td>Embarcador → ETC → TAC Equiparado</td><td>ETC</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>Mesma lógica do cenário anterior.</td></tr>
+<tr><td>Embarcador → ETC → ETC (redespacho)</td><td>ETC executora</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>Se não houver TAC na ponta, a executora emite.</td></tr>
+<tr><td>Redespacho em cadeia (múltiplos níveis)</td><td>Última ETC que contrata TAC</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>Responsabilidade desce até quem contrata o executante.</td></tr>
+<tr><td>Embarcador → Operador logístico → TAC</td><td>Operador logístico</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>Contratante direto do TAC emite.</td></tr>
+<tr><td>ETC → TAC-Agregado</td><td>ETC</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>Piso mínimo não se aplica ao TAC-Agregado.</td></tr>
+<tr><td>Transporte entre filiais (carga própria)</td><td>—</td><td style="text-align:center"><span class="tag tag-ok">Não gera</span></td><td>Transporte não remunerado. Fora do escopo.</td></tr>
+<tr><td>Transporte internacional (TRIC)</td><td>—</td><td style="text-align:center"><span class="tag tag-ok">Não obrigatório</span></td><td>Fora do escopo da ANTT.</td></tr>
+<tr><td>Frete fracionado (múltiplos CT-es)</td><td>ETC</td><td style="text-align:center"><span class="tag tag-err">Obrigatório</span></td><td>CIOT por operação. Piso mínimo não se aplica.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="info-banner">
+<svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+<p>Precisa validar sua integração com o NDD Cargo? Use o <a href="https://validador-xml-nddcargo.vercel.app/#">Validador NDD Cargo</a> para testar sua mensagem antes de enviar para produção — identifica campos inválidos, ausentes e erros de estrutura.</p>
+</div>
+<div class="warn-banner"><p><strong>Delegação possível, mas responsabilidade permanece.</strong> O contratante pode delegar a emissão à ETC equiparada a TAC (até 3 veículos) ou à Cooperativa. Mesmo delegando, o contratante continua respondendo pelas obrigações e penalidades.</p></div>
+</div>
+</div>
+
+<!-- PRAZOS -->
+<div id="sec-prazos" class="section">
+<div class="page">
+<div class="sec-header"><h2>Prazos por tipo de operação</h2><p>Cancelamento, retificação e encerramento.</p></div>
+<div class="card" style="padding:0">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Operação</th><th>Encerramento</th><th>Cancelamento</th><th>Retificação</th></tr></thead>
+<tbody>
+<tr><td><strong>Lotação</strong></td><td>Automático após 5 dias do término.</td><td>Até 24h antes do início</td><td><span class="tag tag-err">Sem retificação</span></td></tr>
+<tr><td><strong>Fracionada</strong></td><td>Automático após 5 dias do término.</td><td>Até 24h antes do início</td><td>Até a data de encerramento</td></tr>
+<tr><td><strong>TAC-Agregado</strong></td><td>Mínimo 10 dias após o início. Máximo 30 dias após o fim da vigência. Pendente por mais de 30 dias bloqueia novos CIOTs com qualquer TAC.</td><td>Até 24h antes do início</td><td>Até 30 dias após o término informado</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="danger-banner"><p><strong>Regra geral:</strong> nenhum CIOT pode ser cancelado depois de entrar em fiscalização ou auditoria pela ANTT, independente do tipo de operação.</p></div>
+<div style="margin-top:2rem">
+<h2 style="font-size:15px;font-weight:600;margin-bottom:.75rem;color:#071F36">Penalidades por descumprimento do piso mínimo</h2>
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-label">Multa por operação</div><div class="metric-value">R$ 550 – R$ 10.500</div><div class="metric-sub">Por contratação abaixo do piso</div></div>
+<div class="metric-card"><div class="metric-label">Multa por reincidência</div><div class="metric-value">R$ 1M – R$ 10M</div><div class="metric-sub">Para o contratante reincidente</div></div>
+<div class="metric-card"><div class="metric-label">Sanção ao transportador</div><div class="metric-value" style="font-size:15px;margin-top:4px">Suspensão / cancelamento</div><div class="metric-sub">Do registro no RNTRC</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- REJEIÇÕES -->
+<div id="sec-rejeicoes" class="section">
+<div class="page">
+<div class="sec-header"><h2>Guia de rejeições</h2><p>31 padrões mapeados. Busque pelo texto do erro ou filtre por categoria.</p></div>
+<div class="rej-toolbar">
+<input class="rej-search" id="rejSearch" placeholder="Buscar por mensagem ou categoria..." oninput="filterRej()">
+<div class="rej-filter">
+<button class="on" data-cat="all" onclick="filterCat(this)">Todos</button>
+<button data-cat="CEP e Localização" onclick="filterCat(this)">CEP e localização</button>
+<button data-cat="Distância e Roteirização" onclick="filterCat(this)">Distância</button>
+<button data-cat="Veículos e Composição" onclick="filterCat(this)">Veículos</button>
+<button data-cat="TAC-Agregado" onclick="filterCat(this)">TAC-Agregado</button>
+<button data-cat="Frete Mínimo" onclick="filterCat(this)">Frete mínimo</button>
+<button data-cat="Datas" onclick="filterCat(this)">Datas</button>
+<button data-cat="Cadastros" onclick="filterCat(this)">Cadastros</button>
+<button data-cat="Pagamento" onclick="filterCat(this)">Pagamento</button>
+<button data-cat="Financeiro" onclick="filterCat(this)">Financeiro</button>
+<button data-cat="Instabilidade e Sistema" onclick="filterCat(this)">Sistema</button>
+</div>
+</div>
+<div class="rej-list" id="rejList"></div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div id="sec-faq" class="section">
+<div class="page">
+<div class="sec-header"><h2>Perguntas frequentes</h2><p>Baseadas na FAQ oficial da ANTT e nas orientações internas para Comercial e Operações.</p></div>
+<div class="card"><div class="faq-list" id="faqList"></div></div>
+</div>
+</div>
+
+<script>
+const IC_CHEVRON=`<svg class="ic rej-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+const IC_CLICK=`<svg class="ic" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"/></svg>`;
+const IC_FAQ_CHEV=`<svg class="ic faq-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+const REJEICOES=[
+{cat:"CEP e Localização",msg:"CEP XXXXXXXX ainda não está cadastrado em nossos sistemas. Reenvie a requisição informando as coordenadas geográficas para o par de Origem/Destino correspondente.",cause:"A ANTT usa a base do Google Maps. Este CEP não consta nessa base.",steps:["Identificar o CEP na mensagem de erro","Obter latitude e longitude no Google Maps","Reenviar substituindo o CEP pelas coordenadas"]},
+{cat:"CEP e Localização",msg:"Não foi encontrada nenhuma Cidade na base de dados com CEP informado no Ponto de Parada da Rota.",cause:"CEP com final genérico (000) ou muito específico para ser localizado.",steps:["Substituir pelo CEP completo e específico","Alternativamente, informar latitude e longitude no campo de ponto de parada","Reenviar"]},
+{cat:"Distância e Roteirização",msg:"Distância não compatível com a Origem/Destino informados. Revise a distância declarada ou seja mais específico nas informações de origem e destino.",cause:"Distância declarada menor que a calculada pela ANTT via Google Maps. Tolerância de apenas 6 km abaixo da menor rota.",steps:["Verificar o KM informado","Calcular a rota no Google Maps entre os CEPs","Ajustar para valor igual ou superior ao calculado pela ANTT","Reenviar"]},
+{cat:"Distância e Roteirização",msg:"Código: 205 - Rejeição: O campo DistanciaPercorrida é inválido.",cause:"Valor de distância fora do range aceito pela ANTT.",steps:["Verificar se o valor não está excessivamente alto","Corrigir para o valor real da rota em km","Reenviar"]},
+{cat:"Distância e Roteirização",msg:"Quando a rota não utilizar roteirizador deve ser informado a quilometragem total.",cause:"Operação sem roteirizador e campo de KM total não preenchido.",steps:["Enviar o campo de KM total da rota preenchido","Ou enviar utilizaRoteirizador = true para delegar o cálculo à ANTT"]},
+{cat:"Veículos e Composição",msg:"É obrigatório informar ao menos um implemento quando o veículo automotor for do tipo cavalo-trator.",cause:"Cavalo-trator sem reboque vinculado na operação.",steps:["Acessar a operação no portal ou integração","Incluir ao menos um reboque vinculado ao cavalo-trator","Reenviar"]},
+{cat:"Veículos e Composição",msg:"É necessário informar ao menos um veículo do tipo automotor.",cause:"Nenhum veículo do tipo automotor (tração) na composição. Provavelmente está cadastrado como reboque.",steps:["Revisar o cadastro do veículo","Verificar se o principal está classificado como Automotor/Tração","Corrigir e reenviar"]},
+{cat:"Veículos e Composição",msg:"Somente um veículo deve ser do tipo automotor.",cause:"Mais de um veículo classificado como automotor. Apenas um é permitido.",steps:["Revisar os veículos da operação","Identificar qual reboque está incorretamente como tração","Corrigir o tipo para Reboque e reenviar"]},
+{cat:"Veículos e Composição",msg:"A placa XXXXXXX não pertence ao transportador de RNTRC XXXXXXXXX, ou o mesmo não está ativo.",cause:"Placa não associada ao RNTRC do transportador ou transportador inativo na ANTT.",steps:["Verificar se a placa está cadastrada corretamente","Confirmar se o RNTRC está ativo na ANTT","Corrigir o vínculo placa × RNTRC","Reenviar"]},
+{cat:"Veículos e Composição",msg:"Foram informados Veículos repetidos.",cause:"Mesma placa informada mais de uma vez na operação.",steps:["Identificar as placas duplicadas","Remover a duplicidade, mantendo apenas uma ocorrência","Reenviar"]},
+{cat:"Veículos e Composição",msg:"Não foi possível concluir a emissão. Informe a quantidade de eixos no cadastro do veículo ou configure essa informação pelo Portal do Contratante.",cause:"Cliente em retrocompatibilidade não atualizou a integração. Campo de eixos não preenchido.",steps:["Acessar o portal NDD Cargo","Ir ao cadastro dos veículos usados na operação","Preencher o campo Quantidade de Eixos para cada veículo","Retransmitir a operação"]},
+{cat:"Veículos e Composição",msg:"Quantidade de eixos inválida para o tipo de veículo informado.",cause:"Número de eixos incompatível. Tração: 2–4. Reboque: 1–4.",steps:["Revisar o cadastro do veículo","Verificar se a quantidade de eixos está dentro do range","Corrigir e reenviar"]},
+{cat:"Veículos e Composição",msg:"O RNTRC do transportador informado para o cadastro de Veículo é inválido.",cause:"RNTRC incorreto ou transportador inativo.",steps:["Verificar o RNTRC no cadastro do veículo","Confirmar se está ativo na ANTT","Corrigir e reenviar"]},
+{cat:"Veículos e Composição",msg:"Rejeição: O campo PesoCarga deve ser maior que 0 e menor 9999999.99.",cause:"Bug confirmado na ANTT — não aceita valores muito altos de peso da carga.",steps:["Informar um valor de peso menor para a operação","Registrar o caso para acompanhamento"],bug:true},
+{cat:"TAC-Agregado",msg:"Já existem 2 CIOTs abertos entre o contratante e o contratado informados, com um ou mais veículos já relacionados em operação de transporte do tipo TAC-Agregado.",cause:"Limite de 2 CIOTs abertos entre o mesmo par contratante/contratado com os mesmos veículos atingido.",steps:["Identificar os CIOTs abertos para este par","Encerrar ou cancelar ao menos um dos CIOTs vigentes","Emitir o novo CIOT após a liberação"]},
+{cat:"TAC-Agregado",msg:"A operação de transporte do tipo TAC-Agregado deve possuir data fim da viagem igual ou superior a 10 dias da data de início da viagem.",cause:"Data de término inferior a 10 dias do início para operação TAC-Agregado.",steps:["Revisar a data de término","Ajustar para intervalo mínimo de 10 dias a partir do início","Reenviar"]},
+{cat:"TAC-Agregado",msg:"O contratado informado deve ser do tipo TAC para operações do tipo TAC-Agregado.",cause:"Transportador não cadastrado como TAC.",steps:["Verificar o tipo do transportador","Se for ETC ou CTC, trocar o tipo de operação para Lotação ou Fracionada","Enviar com o tipo correto"]},
+{cat:"TAC-Agregado",msg:"Todos os veículos informados devem pertencer ao transportador contratado para operação de transporte de TAC-Agregado.",cause:"Veículos de terceiros em operação TAC-Agregado — não permitido.",steps:["Revisar o cadastro dos veículos","Verificar se as placas estão vinculadas ao RNTRC do contratado","Se forem de terceiros, trocar para Lotação ou Fracionada","Reenviar"]},
+{cat:"Carga Fracionada",msg:"O(s) contratante(s) da carga fracionada não pode(m) ser igual(is) ao contratante da operação de transporte.",cause:"Mesmo CNPJ/CPF nos contratantes da carga fracionada e no contratante principal.",steps:["Revisar a lista de contratantes da carga fracionada","Remover ou substituir o contratante igual ao principal","Reenviar"]},
+{cat:"Carga Fracionada",msg:"Código: 205 - Rejeição: O campo ContratantesCargFrac é inválido.",cause:"CNPJs/CPFs nos contratantes fracionados incorretos.",steps:["Revisar os CNPJs e CPFs nos Contratantes Fracionados","Verificar formatação: sem pontuação, zeros à esquerda","Corrigir e reenviar"]},
+{cat:"Frete Mínimo",msg:"O valor do frete informado é menor do que o valor mínimo de frete estabelecido.",cause:"Frete declarado inferior ao piso mínimo calculado pela ANTT. Parâmetros: distância, composição veicular, frete retorno e alto desempenho.",steps:["Rever o valor do frete","Verificar se a distância percorrida está correta","Confirmar a composição veicular (tipo e eixos)","Checar se os flags de Frete Retorno e Alto Desempenho estão corretos","Corrigir e reenviar"]},
+{cat:"Datas",msg:"A Data de Emissão da Operação de Transporte não pode ser maior que a Data de Início.",cause:"Inconsistência nas datas: emissão > início.",steps:["Revisar datas de Emissão, Início e Término","Garantir: Emissão ≤ Início ≤ Emissão + 30 dias; Término ≥ data atual","Corrigir e reenviar"]},
+{cat:"Datas",msg:"A Data de Início da Operação de Transporte deve ser menor ou igual a 30 dias da Data de Emissão.",cause:"Início ultrapassa 30 dias a partir da emissão.",steps:["Verificar as datas de emissão e início","Ajustar para respeitar o limite de 30 dias","Reenviar"]},
+{cat:"Datas",msg:"A Data de Término da Operação de Transporte não pode ser menor que a data atual.",cause:"Data de término no passado.",steps:["Corrigir a data de término para data futura ou igual à atual","Reenviar"]},
+{cat:"CIOT",msg:"Rejeição: O campo IdOperacaoTransporte é inválido.",cause:"Erro interno na comunicação entre NDD Cargo e ANTT.",steps:["Solicitar ao cliente que reenvie pelo portal ou integração","Se persistir após reenvio, escalar para o time de desenvolvimento"],escalate:true},
+{cat:"OT e Duplicidade",msg:"Já existe uma Operação de Transporte com o Número e Série especificados.",cause:"Esta operação já foi recebida anteriormente com o mesmo número e série.",steps:["Verificar o status da OT já registrada no portal","Para nova OT, trocar a série antes de retransmitir","Se for a mesma OT, reenvio não é necessário"]},
+{cat:"Pagamento",msg:"Não é permitido o tipo de pagamento informado para transportador TAC ou equiparado.",cause:"TAC e equiparados não aceitam o tipo 5 (Outros).",steps:["Trocar o tipo de pagamento para 2 — Conta Corrente","Informar banco, agência e conta do transportador","Reenviar"]},
+{cat:"Cadastros",msg:"Não foi encontrado transportador contratado com CPF/CNPJ XXXXXXXXXXX e RNTRC XXXXXXXXX.",cause:"Par CPF/CNPJ + RNTRC não corresponde a transportador ativo na ANTT.",steps:["Verificar o cadastro do transportador no sistema e no portal","Confirmar que CPF/CNPJ e RNTRC pertencem ao mesmo transportador","Corrigir e reenviar"]},
+{cat:"Cadastros",msg:"O Ponto Emissor não foi encontrado na base de dados.",cause:"Ponto emissor enviado na integração não existe no portal NDD Cargo.",steps:["Acessar o portal NDD Cargo","Cadastrar o ponto emissor com exatamente o mesmo nome enviado","Reenviar"]},
+{cat:"Cadastros",msg:"O Sistema Harmonizado não foi encontrado na base de dados.",cause:"Código SH inválido ou não existente na base do NDD Cargo.",steps:["Revisar o código SH","Consultar a tabela de códigos SH no Validador NDD Cargo","Substituir pelo código correto e reenviar"]},
+{cat:"Financeiro",msg:"O valor total das Parcelas não pode ser diferente do valor da Operação de Transporte.",cause:"Soma das parcelas diferente do valor total da operação.",steps:["Somar o valor de todas as parcelas","Conferir se coincide com o valor da OT","Corrigir a distribuição e reenviar"]},
+{cat:"Instabilidade e Sistema",msg:"Não foi possível realizar a declaração da Operação de Transporte na ANTT.",cause:"Indisponibilidade temporária do serviço da ANTT.",steps:["Aguardar normalização","Retentar após alguns minutos","Se persistir por mais de 1 hora, verificar status da ANTT e comunicar o cliente proativamente"]}
+];
+
+const FAQS=[
+{sec:"Contexto geral",q:"O que está mudando na emissão de CIOT?",a:"A ANTT publicou a Portaria SUROC 6/2026, regulamentando a MP 1.343/2026. Novos tipos de operação, campos obrigatórios, validação automática do piso mínimo, novas regras de retificação, cancelamento e encerramento. A obrigatoriedade do CIOT passa a valer também para ETC com frota própria."},
+{sec:"Contexto geral",q:"A partir de quando isso vale?",a:"A partir de 24/05/2026. Afeta três canais: Portal Web (novos campos disponíveis na data), API REST e WS SOAP (novo layout obrigatório, versão 4.2.12.0)."},
+{sec:"Contexto geral",q:"CIOTs emitidos antes de 24/05/2026 mudam?",a:"Não. CIOTs emitidos antes da virada seguem as regras antigas até serem encerrados ou cancelados. As novas regras valem para operações cadastradas a partir de 24/05/2026."},
+{sec:"Obrigatoriedade",q:"Sou obrigado a emitir CIOT na minha operação?",a:"Sim, se você contrata transporte rodoviário remunerado de cargas. Vale para contratantes de TAC, TAC equiparado, CTC e também para ETC que faz transporte com frota própria. O CIOT precisa ser gerado antes do início da viagem."},
+{sec:"Obrigatoriedade",q:"Existe alguma operação que não precisa de CIOT?",a:"Sim: transporte de veículo novo zero-km (autotransporte), cargas especiais com composição não homologada pela Senatran, transporte internacional (TRIC) e operações do art. 8º da Resolução ANTT 5.862/2019."},
+{sec:"Obrigatoriedade",q:"Sou ETC e faço o transporte com minha frota. Preciso emitir CIOT?",a:"Sim. Este é um cenário novo a partir de 24/05/2026. ETC com frota própria também precisa emitir CIOT. Como emitir: Contratante = embarcador, Contratado = próprio ETC, Tipo de pagamento = Outros."},
+{sec:"Obrigatoriedade",q:"Posso delegar a emissão do CIOT para o transportador?",a:"Pode, com acordo entre as partes. A delegação só vale para ETC equiparada a TAC (até 3 veículos) ou Cooperativa. Importante: mesmo delegando, o contratante continua respondendo pelas obrigações e penalidades."},
+{sec:"Obrigatoriedade",q:"Sou TAC. Preciso fazer alguma coisa?",a:"Não. Quem emite o CIOT é o contratante. Você só precisa estar ativo no RNTRC e fornecer seus dados corretamente (CPF, RNTRC, dados do veículo, conta para pagamento)."},
+{sec:"Tipos de operação",q:"Quais são os tipos de operação?",a:"São três: Lotação (um contratante, mesmo com múltiplos pontos), Fracionada (mais de um contratante) e TAC-Agregado (TAC com veículo exclusivo, remuneração fixa, mínimo 10 dias)."},
+{sec:"Tipos de operação",q:"Tenho um só contratante, mas vou descarregar em três lugares. É lotação ou fracionada?",a:"Com apenas um contratante, é sempre Lotação — mesmo com vários pontos. Quando há mais de um contratante envolvido, é Fracionada."},
+{sec:"Tipos de operação",q:"Posso gerar um único CIOT para toda a carga fracionada?",a:"Pode. Um único CIOT pode abranger todo o trajeto, do ponto inicial ao destino final."},
+{sec:"Dados obrigatórios",q:"Que informações preciso ter em mãos para emitir o CIOT?",a:"Dados do contratante e contratado (ativo no RNTRC), veículos com quantidade de eixos, carga (NCM, tipo, quantidade), origem e destino, distância total, valor do frete e forma de pagamento detalhada. Para Lotação, também os indicadores operacionais."},
+{sec:"Dados obrigatórios",q:"Tenho vários NCMs na mesma carga. Qual informo?",a:"O de maior valor comercial no documento fiscal. Não some, não escolha aleatoriamente."},
+{sec:"Dados obrigatórios",q:"Como informo origem e destino?",a:"Por código IBGE do município, CEP ou coordenadas geográficas. Origem e destino precisam usar o mesmo padrão. Se você tem o dado mais específico, use o mais específico."},
+{sec:"Dados obrigatórios",q:"Troquei o veículo no meio da operação. O que faço?",a:"Mudança de veículo exige um novo CIOT. Não é possível retificar trocando só a placa."},
+{sec:"Dados obrigatórios",q:"Operação com carreta dupla ou bitrem — preciso informar todos os veículos?",a:"Sim, todos. O veículo principal (cavalo) deve estar na frota do transportador no RNTRC. Os implementos entram obrigatoriamente, mesmo de terceiros. Regra de eixos: veículo automotor de 2 a 4, implemento de 1 a 4."},
+{sec:"Piso mínimo",q:"Existe um valor mínimo de frete?",a:"Sim, para carga lotação. A ANTT valida automaticamente o valor declarado contra a tabela do piso mínimo no momento da emissão. Se estiver abaixo, o CIOT é bloqueado."},
+{sec:"Piso mínimo",q:"Em quais operações o piso mínimo não se aplica?",a:"Em quatro casos: TRIC (transporte internacional), TAC-Agregado, transporte de carga própria e carga fracionada (por ausência de tabela oficial para esse tipo)."},
+{sec:"Piso mínimo",q:"Estou contratando só o cavalo-trator. Qual tabela se aplica?",a:"Tabelas B ou D da Resolução ANTT 5.867/2020. O sistema aplica automaticamente conforme o tipo de contratação."},
+{sec:"Piso mínimo",q:"Se eu pagar abaixo do piso mesmo assim, qual o risco?",a:"A MP 1.343/2026 endureceu as sanções: multa por operação (R$ 550–R$ 10.500), multa agravada por reincidência (R$ 1M–R$ 10M para o contratante) e até suspensão ou cancelamento do registro no RNTRC."},
+{sec:"Piso mínimo",q:"Onde não se aplica o frete mínimo?",a:"Art. 7º Res. 5.867/2020: TRIC, TAC-Agregado e transporte de carga própria. Por ausência de tabela oficial: carga fracionada."},
+{sec:"Retificação e cancelamento",q:"Errei um dado em Lotação. Consigo corrigir?",a:"Não. Para Carga Lotação não há mais retificação. Se houver erro, o CIOT precisa ser cancelado (se ainda dentro das 24h antes do início) e um novo deve ser gerado."},
+{sec:"Retificação e cancelamento",q:"Quais dados devo conferir antes de emitir um CIOT de Lotação?",a:"Contratado, contratante, origem e destino, distância, valor do frete, tipo de carga, veículos, eixos e indicadores operacionais. Não há como corrigir depois."},
+{sec:"TAC-Agregado",q:"Como funciona o CIOT do TAC-Agregado?",a:"TAC coloca o veículo exclusivamente a serviço do contratante, com remuneração fixa. Duração mínima de 10 dias e máxima de 30 dias. A data de início é a data de geração do CIOT."},
+{sec:"TAC-Agregado",q:"O mesmo veículo pode ter dois CIOTs ao mesmo tempo?",a:"Em regra, não. Exceção: se for o mesmo contratante, mesmo TAC e mesmo veículo, podem ter até 2 CIOTs simultâneos."},
+{sec:"TAC-Agregado",q:"Tenho 30 dias após a operação para encerrar o TAC-Agregado. E se eu passar?",a:"O CIOT entra na situação Pendente. Enquanto isso, fica bloqueado de registrar novo CIOT TAC-Agregado com o mesmo transportador. Se ficar pendente por mais de 30 dias, o bloqueio se estende a qualquer TAC."},
+{sec:"Contingência e MDF-e",q:"A ANTT caiu e preciso despachar a carga. O que faço?",a:"Use a geração em contingência, somente em casos de problema técnico real. Máximo de 168 horas (7 dias) para transmitir os dados. O NDD Cargo entra automaticamente em contingência quando não consegue comunicar com a ANTT."},
+{sec:"Contingência e MDF-e",q:"E o MDF-e? Continua precisando?",a:"Sim. O CIOT precisa estar informado e vinculado ao MDF-e. Você gera o CIOT antes da viagem e o número entra no MDF-e. Um não substitui o outro."},
+{sec:"Contingência e MDF-e",q:"A ANTT recebeu meu CIOT. Está tudo certo então?",a:"Não necessariamente. O recebimento não significa validação ou homologação. Se forem detectadas inconsistências depois, cabe sanção. A responsabilidade pela veracidade dos dados é integralmente do declarante."},
+{sec:"Integração TMS",q:"Qual é a mudança estrutural principal na integração?",a:"A tag genérica &lt;padrao&gt; é substituída por &lt;lotacao&gt;, &lt;fracionado&gt; e &lt;TACagregado&gt;. TMS antigos que continuarem enviando &lt;padrao&gt; terão falha de integração direta."},
+{sec:"Integração TMS",q:"Vou precisar enviar dados que não envio hoje?",a:"Sim. Distância total da rota (totalKm vira crítico), quantidade de eixos e tipo de carga viram obrigatórios. Para Lotação: três indicadores operacionais. Para Fracionada: lista de contratantes. Para ETC frota própria: bloco &lt;adicionais&gt; completo."},
+{sec:"Integração TMS",q:"Cancelamento exige novos campos na integração?",a:"Não. O layout de cancelamento não muda, apenas a regra de negócio: Lotação e Fracionada só podem ser canceladas até 24h antes do início."}
+];
+
+let activeCat='all';
+function showSection(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-tabs button').forEach(b=>b.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');btn.classList.add('active')}
+function filterCat(btn){document.querySelectorAll('.rej-filter button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');activeCat=btn.dataset.cat;filterRej()}
+function filterRej(){
+  const q=document.getElementById('rejSearch').value.toLowerCase();
+  const list=document.getElementById('rejList');
+  list.innerHTML='';
+  let found=0;
+  REJEICOES.forEach(r=>{
+    const cm=activeCat==='all'||r.cat===activeCat;
+    const tm=!q||r.msg.toLowerCase().includes(q)||r.cat.toLowerCase().includes(q)||(r.cause||'').toLowerCase().includes(q);
+    if(!cm||!tm)return;
+    found++;
+    const d=document.createElement('div');
+    d.className='rej-item';
+    d.innerHTML=`<div class="rej-header" onclick="toggleRej(this)">
+      <div class="rej-msg-wrap">
+        <span class="rej-hint">${IC_CLICK} Clique para ver como resolver</span>
+        <span class="rej-msg">${r.msg}</span>
+      </div>
+      <span class="rej-cat">${r.cat}</span>
+      ${IC_CHEVRON}
+    </div>
+    <div class="rej-body" style="display:none">
+      <div class="rej-cause"><strong>Causa</strong>${r.cause}${r.bug?'<span class="bug-badge">Bug confirmado na ANTT — aguardando correção</span>':''}</div>
+      <div class="rej-solution"><strong>Como resolver</strong><ul class="rej-steps">${r.steps.map(s=>`<li>${s}</li>`).join('')}</ul>${r.escalate?'<span class="escalate-badge">Escalar para dev se persistir após reenvio</span>':''}</div>
+    </div>`;
+    list.appendChild(d);
+  });
+  if(!found)list.innerHTML='<div class="rej-empty">Nenhuma rejeição encontrada.</div>';
+}
+function toggleRej(h){
+  const b=h.nextElementSibling;
+  const chev=h.querySelector('.rej-chev');
+  const op=b.style.display!=='none';
+  b.style.display=op?'none':'block';
+  chev.style.transform=op?'':'rotate(180deg)';
+  h.closest('.rej-item').classList.toggle('open',!op);
+}
+function buildFaq(){
+  const list=document.getElementById('faqList');
+  let last='';
+  FAQS.forEach(f=>{
+    if(f.sec!==last){last=f.sec;const t=document.createElement('p');t.className='faq-section-title';t.textContent=f.sec;list.appendChild(t)}
+    const it=document.createElement('div');it.className='faq-item';
+    it.innerHTML=`<div class="faq-q" onclick="toggleFaq(this)"><span>${f.q}</span>${IC_FAQ_CHEV}</div><div class="faq-a">${f.a}</div>`;
+    list.appendChild(it);
+  });
+}
+function toggleFaq(q){q.parentElement.classList.toggle('open')}
+filterRej();buildFaq();
+</script>
+</body>
+</html>
