@@ -27,10 +27,14 @@ nav{background:#071F36;position:sticky;top:0;z-index:100;padding:0 1.5rem}
 }
 
 .hero{background:#071F36;padding:1.5rem 1.5rem 1.25rem}
-.hero-inner{max-width:960px;margin:0 auto}
+.hero-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:2.5rem}
+.hero-text{flex:1;min-width:0}
+.hero-img{flex:0 0 38%;max-width:380px}
+.hero-img img{width:100%;height:auto;display:block;border-radius:10px;opacity:.92}
+@media(max-width:640px){.hero-img{display:none}}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:1rem;border:1px solid rgba(255,255,255,.15)}
 .hero h1{font-size:26px;font-weight:600;color:#fff;margin-bottom:.5rem;line-height:1.3}
-.hero p{font-size:14px;color:rgba(255,255,255,.6);max-width:580px;margin-bottom:1.5rem}
+.hero p{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:1.5rem}
 .hero-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.75rem}
 .btn-primary{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#071F36;font-family:inherit;font-size:13px;font-weight:500;padding:8px 16px;border-radius:6px;border:none;cursor:pointer;text-decoration:none;transition:opacity .15s}
 .btn-primary:hover{opacity:.88}
@@ -141,6 +145,7 @@ tbody tr:hover td{background:#FAFAFA}
 
 <div class="hero">
 <div class="hero-inner">
+<div class="hero-text">
 <div class="badge">
 <svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
 Em vigor desde 24/05/2026
@@ -156,6 +161,10 @@ Validar minha integração
 <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
 IA — Leis do CIOT e Frete Mínimo
 </a>
+</div>
+</div>
+<div class="hero-img">
+<img src="/hero-image.png" alt="">
 </div>
 </div>
 </div>
