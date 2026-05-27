@@ -14,22 +14,16 @@ svg.ic{display:inline-block;vertical-align:middle;flex-shrink:0}
 
 nav{background:#071F36;position:sticky;top:0;z-index:100;padding:0 1.5rem}
 .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:52px}
-.nav-logo-box{margin-right:1.5rem;flex-shrink:0;display:flex;align-items:center}
+.nav-logo-box{flex-shrink:0;display:flex;align-items:center}
 .nav-logo-box img{height:28px;width:auto;display:block}
-.nav-divider{width:1px;height:20px;background:rgba(255,255,255,.15);margin-right:1.5rem;flex-shrink:0}
-.nav-tabs{display:flex;overflow-x:auto;gap:0;flex:1;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.nav-tabs::-webkit-scrollbar{display:none}
-.nav-tabs button{background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;padding:0 14px;height:52px;color:rgba(255,255,255,.55);white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
-.nav-tabs button:hover{color:rgba(255,255,255,.85)}
-.nav-tabs button.active{color:#fff;border-bottom-color:#fff;font-weight:500}
+@media(max-width:480px){.nav-logo-box img{height:22px}}
+.hero-tabs-row{border-top:1px solid rgba(255,255,255,.12);margin-top:1.75rem}
+.hero-tabs{max-width:960px;margin:0 auto;display:flex;gap:0}
+.hero-tabs button{background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;padding:0 18px;height:46px;color:rgba(255,255,255,.55);white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;flex:1}
+.hero-tabs button:hover{color:rgba(255,255,255,.85)}
+.hero-tabs button.active{color:#fff;border-bottom-color:#fff;font-weight:500}
 @media(max-width:600px){
-  nav{padding:0}
-  .nav-inner{flex-wrap:wrap;height:auto;padding:0 1rem}
-  .nav-logo-box{height:44px;margin-right:0}
-  .nav-logo-box img{height:22px}
-  .nav-divider{display:none}
-  .nav-tabs{width:100%;border-top:1px solid rgba(255,255,255,.1);padding:0 0 2px}
-  .nav-tabs button{height:40px;font-size:12px;padding:0 12px}
+  .hero-tabs button{font-size:12px;padding:0 10px}
 }
 
 .hero{background:#071F36;padding:2.5rem 1.5rem 2rem}
@@ -42,10 +36,6 @@ nav{background:#071F36;position:sticky;top:0;z-index:100;padding:0 1.5rem}
 .btn-primary:hover{opacity:.88}
 .btn-outline{display:inline-flex;align-items:center;gap:7px;background:transparent;color:rgba(255,255,255,.85);font-family:inherit;font-size:13px;font-weight:500;padding:8px 16px;border-radius:6px;border:1px solid rgba(255,255,255,.25);cursor:pointer;text-decoration:none;transition:border-color .15s,color .15s}
 .btn-outline:hover{border-color:rgba(255,255,255,.6);color:#fff}
-.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:580px}
-.stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 16px}
-.stat-n{font-size:22px;font-weight:600;color:#fff}
-.stat-l{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
 
 .page{max-width:960px;margin:0 auto;padding:1.5rem}
 .section{display:none}
@@ -146,14 +136,6 @@ tbody tr:hover td{background:#FAFAFA}
 <div class="nav-logo-box">
 <img src="/logo-ndd-cargo.png" alt="NDD Cargo">
 </div>
-<div class="nav-divider"></div>
-<div class="nav-tabs">
-<button class="active" onclick="showSection('mudancas',this)">O que mudou</button>
-<button onclick="showSection('quem',this)">Quem emite CIOT</button>
-<button onclick="showSection('prazos',this)">Prazos</button>
-<button onclick="showSection('rejeicoes',this)">Guia de rejeições</button>
-<button onclick="showSection('faq',this)">FAQ</button>
-</div>
 </div>
 </nav>
 
@@ -175,12 +157,15 @@ Validar minha integração
 NotebookLM — Leis do CIOT e Frete Mínimo
 </a>
 </div>
-<div class="hero-stats">
-<div class="stat"><div class="stat-n">24/05</div><div class="stat-l">Data de vigência</div></div>
-<div class="stat"><div class="stat-n">6</div><div class="stat-l">Mudanças principais</div></div>
-<div class="stat"><div class="stat-n">31</div><div class="stat-l">Rejeições mapeadas</div></div>
-<div class="stat"><div class="stat-n">32</div><div class="stat-l">Perguntas respondidas</div></div>
 </div>
+</div>
+<div class="hero-tabs-row">
+<div class="hero-tabs">
+<button class="active" onclick="showSection('mudancas',this)">O que mudou</button>
+<button onclick="showSection('quem',this)">Quem emite CIOT</button>
+<button onclick="showSection('prazos',this)">Prazos</button>
+<button onclick="showSection('rejeicoes',this)">Guia de rejeições</button>
+<button onclick="showSection('faq',this)">FAQ</button>
 </div>
 </div>
 
@@ -422,7 +407,7 @@ const FAQS=[
 ];
 
 let activeCat='all';
-function showSection(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-tabs button').forEach(b=>b.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');btn.classList.add('active')}
+function showSection(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.hero-tabs button').forEach(b=>b.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');btn.classList.add('active')}
 function filterCat(btn){document.querySelectorAll('.rej-filter button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');activeCat=btn.dataset.cat;filterRej()}
 function filterRej(){
   const q=document.getElementById('rejSearch').value.toLowerCase();
