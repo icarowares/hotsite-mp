@@ -14,9 +14,9 @@ svg.ic{display:inline-block;vertical-align:middle;flex-shrink:0}
 
 nav{background:#071F36;position:sticky;top:0;z-index:100;padding:0 1.5rem}
 .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:52px}
-.nav-logo-box{background:#030C16;border-radius:6px;padding:4px 10px;margin-right:1.5rem;flex-shrink:0}
-.nav-logo-box span{color:#fff;font-size:13px;font-weight:600;letter-spacing:-.3px}
-.nav-logo-box span em{font-style:normal;font-weight:400;opacity:.7}
+.nav-logo-box{margin-right:1.5rem;flex-shrink:0;display:flex;align-items:center}
+.nav-logo-box img{height:28px;width:auto;display:block}
+@media(max-width:480px){.nav-logo-box img{height:22px}}
 .nav-divider{width:1px;height:20px;background:rgba(255,255,255,.15);margin-right:1.5rem;flex-shrink:0}
 .nav-tabs{display:flex;overflow-x:auto;gap:0;flex:1}
 .nav-tabs button{background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;padding:0 14px;height:52px;color:rgba(255,255,255,.55);white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
@@ -135,7 +135,7 @@ tbody tr:hover td{background:#FAFAFA}
 <nav>
 <div class="nav-inner">
 <div class="nav-logo-box">
-<span>ndd<em>cargo</em></span>
+<img src="/logo-ndd-cargo.png" alt="NDD Cargo">
 </div>
 <div class="nav-divider"></div>
 <div class="nav-tabs">
