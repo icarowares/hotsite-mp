@@ -113,6 +113,7 @@ tbody tr:hover td{background:#FAFAFA}
 .rej-steps{list-style:none;padding:0}
 .rej-steps li{padding:3px 0 3px 1.1em;position:relative;font-size:13px;color:#374151}
 .rej-steps li:before{content:"›";position:absolute;left:0;color:#071F36;font-weight:600}
+.rej-alt-divider{border-top:1px dashed #E5E7EB;margin:14px 0}
 .bug-badge{background:#FEF3C7;color:#92400E;font-size:11px;padding:2px 9px;border-radius:10px;margin-top:6px;display:inline-block;font-weight:500}
 .escalate-badge{background:#FEE2E2;color:#991B1B;font-size:11px;padding:2px 9px;border-radius:10px;margin-top:6px;display:inline-block;font-weight:500}
 .rej-empty{color:#9CA3AF;font-size:14px;padding:2.5rem;text-align:center}
@@ -371,7 +372,7 @@ const REJEICOES=[
 {cat:"Distância e Roteirização",msg:"Distância não compatível com a Origem/Destino informados. Revise a distância declarada ou seja mais específico nas informações de origem e destino.",cause:"Distância declarada menor que a calculada pela ANTT via Google Maps. Tolerância de apenas 6 km abaixo da menor rota.",steps:["Verificar o KM informado","Calcular a rota no Google Maps entre os CEPs","Ajustar para valor igual ou superior ao calculado pela ANTT","Reenviar"]},
 {cat:"Distância e Roteirização",msg:"Código: 205 - Rejeição: O campo DistanciaPercorrida é inválido.",cause:"Valor de distância fora do range aceito pela ANTT.",steps:["Verificar se o valor não está excessivamente alto","Corrigir para o valor real da rota em km","Reenviar"]},
 {cat:"Distância e Roteirização",msg:"Quando a rota não utilizar roteirizador deve ser informado a quilometragem total.",cause:"Operação sem roteirizador e campo de KM total não preenchido.",steps:["Enviar o campo de KM total da rota preenchido","Ou enviar utilizaRoteirizador = true para delegar o cálculo à ANTT"]},
-{cat:"Veículos e Composição",msg:"É obrigatório informar ao menos um implemento quando o veículo automotor for do tipo cavalo-trator.",cause:"Cavalo-trator sem reboque vinculado na operação.",steps:["Acessar a operação no portal ou integração","Incluir ao menos um reboque vinculado ao cavalo-trator","Reenviar"]},
+{cat:"Veículos e Composição",msg:"É obrigatório informar ao menos um implemento quando o veículo automotor for do tipo cavalo-trator.",cause:"Cavalo-trator sem reboque vinculado na operação.",steps:["Acessar a operação no portal ou integração","Incluir ao menos um reboque vinculado ao cavalo-trator","Reenviar"],cause2:"Veículo de frota leve (baú, utilitário, truckado) com cadastro incorreto na ANTT — registrado como cavalo-trator.",steps2:["Acessar o RNTRC Digital em rntrcdigital.antt.gov.br","Ir em Transportador > Gerenciamento de Frota","Localizar o veículo com cadastro desatualizado","Clicar na ação de edição, salvar a alteração e finalizar o pedido","Alternativamente, realizar o procedimento em um ponto de atendimento credenciado pela ANTT","Após a correção, registrar/enviar uma nova operação no NDD Cargo"]},
 {cat:"Veículos e Composição",msg:"É necessário informar ao menos um veículo do tipo automotor.",cause:"Nenhum veículo do tipo automotor (tração) na composição. Provavelmente está cadastrado como reboque.",steps:["Revisar o cadastro do veículo","Verificar se o principal está classificado como Automotor/Tração","Corrigir e reenviar"]},
 {cat:"Veículos e Composição",msg:"Somente um veículo deve ser do tipo automotor.",cause:"Mais de um veículo classificado como automotor. Apenas um é permitido.",steps:["Revisar os veículos da operação","Identificar qual reboque está incorretamente como tração","Corrigir o tipo para Reboque e reenviar"]},
 {cat:"Veículos e Composição",msg:"A placa XXXXXXX não pertence ao transportador de RNTRC XXXXXXXXX, ou o mesmo não está ativo.",cause:"Placa não associada ao RNTRC do transportador ou transportador inativo na ANTT.",steps:["Verificar se a placa está cadastrada corretamente","Confirmar se o RNTRC está ativo na ANTT","Corrigir o vínculo placa × RNTRC","Reenviar"]},
@@ -461,6 +462,7 @@ function filterRej(){
     <div class="rej-body" style="display:none">
       <div class="rej-cause"><strong>Causa</strong>${r.cause}${r.bug?'<span class="bug-badge">Bug confirmado na ANTT — aguardando correção</span>':''}</div>
       <div class="rej-solution"><strong>Como resolver</strong><ul class="rej-steps">${r.steps.map(s=>`<li>${s}</li>`).join('')}</ul>${r.escalate?'<span class="escalate-badge">Escalar para dev se persistir após reenvio</span>':''}</div>
+      ${r.cause2?`<div class="rej-alt-divider"></div><div class="rej-cause"><strong>Causa alternativa</strong>${r.cause2}</div><div class="rej-solution"><strong>Como resolver</strong><ul class="rej-steps">${r.steps2.map(s=>`<li>${s}</li>`).join('')}</ul></div>`:''}
     </div>`;
     list.appendChild(d);
   });
