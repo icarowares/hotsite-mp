@@ -137,6 +137,8 @@ tbody tr:hover td{background:#FAFAFA}
 .danger-banner p{font-size:13px;color:#991B1B}
 
 .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:1.25rem}
+.ret-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.ret-note{font-size:12px;color:#6B7280;margin-top:.6rem;line-height:1.5;padding-top:.6rem;border-top:1px solid #F3F4F6}
 .metric-card{background:#fff;border:1px solid #D1D5DB;border-radius:8px;padding:1rem 1.25rem}
 .metric-label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#9CA3AF;font-weight:500;margin-bottom:4px}
 .metric-value{font-size:20px;font-weight:600;color:#991B1B}
@@ -314,6 +316,26 @@ IA — CIOT e Frete Mínimo
 <tr><td><strong>TAC-Agregado</strong></td><td>Mínimo 10 dias após o início. Máximo 30 dias após o fim da vigência. Pendente por mais de 30 dias bloqueia novos CIOTs com qualquer TAC.</td><td>Até 24h antes do início</td><td>Até 30 dias após o término informado</td></tr>
 </tbody>
 </table>
+</div>
+</div>
+<div style="margin-top:1.5rem">
+<h2 style="font-size:15px;font-weight:600;margin-bottom:.75rem;color:#071F36">Retificação por tipo de operação</h2>
+<div class="ret-grid">
+<div class="card">
+<div style="margin-bottom:.6rem"><span class="tag tag-err">Lotação</span></div>
+<p style="font-size:13px;color:#374151;line-height:1.55">A ANTT <strong>não permite qualquer retificação</strong>. Caso haja erro nos dados declarados, o usuário deve proceder com o <strong>cancelamento</strong> (se ainda dentro das 24h antes do início) ou <strong>encerramento</strong> da operação.</p>
+<p class="ret-note">Ajustes sobre pagamentos e parcelas podem ser realizados exclusivamente no NDD Cargo.</p>
+</div>
+<div class="card">
+<div style="margin-bottom:.6rem"><span class="tag tag-ok">Fracionada</span></div>
+<p style="font-size:13px;color:#374151;line-height:1.55">A retificação é permitida para os campos de <strong>Valor do Frete</strong> e <strong>Dados da Carga</strong> (como peso e natureza) até a data de encerramento da operação.</p>
+<p class="ret-note">Ajustes sobre pagamentos e parcelas podem ser realizados exclusivamente no NDD Cargo.</p>
+</div>
+<div class="card">
+<div style="margin-bottom:.6rem"><span class="tag tag-new">TAC-Agregado</span></div>
+<p style="font-size:13px;color:#374151;line-height:1.55">A retificação é, na verdade, uma <strong>etapa necessária</strong> para complementar os dados da operação (como Data de Fim da Viagem e Origem/Destino reais), podendo ser realizada em até <strong>30 dias após o término previsto</strong> da viagem.</p>
+<p class="ret-note">Ajustes sobre pagamentos e parcelas podem ser realizados exclusivamente no NDD Cargo.</p>
+</div>
 </div>
 </div>
 <div class="danger-banner"><p><strong>Regra geral:</strong> nenhum CIOT pode ser cancelado depois de entrar em fiscalização ou auditoria pela ANTT, independente do tipo de operação.</p></div>
